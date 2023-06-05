@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { clamp } from "./utils";
 import "./App.css";
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
     const maxDelta = window.innerWidth / 2;
 
     const percentage = (mouseDelta / maxDelta) * -100;
-    const nextPercentage = parseFloat(String(prevPercentage)) + percentage;
+    let nextPercentage = parseFloat(String(prevPercentage)) + percentage;
 
+    nextPercentage = clamp(nextPercentage, -100, 0);
     setCurrentPercentage(nextPercentage);
 
     if (trackRef.current) {
